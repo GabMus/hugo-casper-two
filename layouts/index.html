@@ -6,7 +6,47 @@
 
 <main id="site-main" class="site-main outer" role="main">
   <div class="inner">
+    <!-- Latest video -->
     <div class="post-feed">
+      <article class="post-card post">
+        <a class="post-card-image-link" id="video-link-img">
+          <div class="post-card-image" id="video-thumbdiv"></div>
+        </a>
+        <div class="post-card-content">
+          <a class="post-card-content-link" id="video-link">
+            <header class="post-card-header">
+              <h1 style="font-size: 4rem;">Latest video</h1>
+              <h2 class="post-card-title" id="video-title"></h2>
+            </header>
+            <section class="post-card-excerpt">
+              <p>Watch now on youtube</p>
+            </section>
+          </a>
+        </div>
+      </article>
+      <script>
+        const MURL='/latestvideo.json';
+        let request = {
+	        method: 'GET'
+        };
+        fetch(MURL, request).then(response => {
+	        if (response.ok) {
+		        return response.json();
+	        }
+	        else {
+		        return response;
+	        }
+        }).then(data => {
+	        document.getElementById('video-title').innerHTML=data.title;
+	        document.getElementById('video-link-img').href=data.link;
+	        document.getElementById('video-link').href=data.link;
+	        document.getElementById('video-thumbdiv').style="background-image: url("+data.thumbnail+");";
+        });
+      </script>
+    </div>
+    <!-- End Latest video -->
+    <h1 style="font-size: 4rem;">Articles</h1>
+    <div class="post-feed" style="margin-top: 15px">
       {{ partial "post-list" . }}
     </div>
 
